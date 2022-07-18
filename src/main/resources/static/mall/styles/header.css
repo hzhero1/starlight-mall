@@ -50,7 +50,7 @@
 }
 
 #header .center .fr .user:hover .username {
-    color: #1baeae;
+    color: #a008c9;
     background-color: #fff;
 }
 
@@ -89,7 +89,7 @@
 }
 
 #header .center .fr .user .selector li:hover a {
-    color: #1baeae;
+    color: #a008c9;
     background-color: #fafafa;
 }
 
@@ -131,7 +131,7 @@
     margin: 0 20px;
     justify-content: center;
     align-items: center;
-    background-color: #1baeae;
+    background-color: #a008c9;
 }
 
 
@@ -190,7 +190,7 @@
 }
 
 #nav .banner_x .list > li:hover a {
-    color: #1baeae;
+    color: #a008c9;
 }
 
 #nav .banner_x .fr {
@@ -215,7 +215,7 @@
 }
 
 #nav .banner_x .fr .button:active {
-    background-color: #1baeae;
+    background-color: #a008c9;
     color: #fff;
 }
 
@@ -233,7 +233,7 @@
 
 #nav .banner_x .fr .search .text:focus {
     outline: none;
-    border: 1px solid #1baeae;
+    border: 1px solid #a008c9;
 }
 
 #nav .banner_x .fr .search .text:focus ~ .keyword_list {
@@ -261,7 +261,7 @@
 
 #nav .banner_x .fr .search .search_hot a:hover {
     color: #fff;
-    background-color: #1baeae;
+    background-color: #a008c9;
 }
 
 #nav .banner_x .fr .search .keyword_list {
@@ -272,7 +272,7 @@
     z-index: 100;
     width: 250px;
     box-sizing: border-box;
-    border: 1px solid #1baeae;
+    border: 1px solid #a008c9;
 }
 
 #nav .banner_x .fr .search .keyword_list li {
@@ -316,7 +316,7 @@
 .w1100 {width: 1100px;margin: 0 auto;}
 .fl {float: left;}
 .site-footer a { color: #a8aaba;}
-.site-footer a:hover { color: #1baeae !important;}
+.site-footer a:hover { color: #a008c9 !important;}
 .site-footer .footer-article { padding: 30px 0 20px; overflow: hidden;}
 .site-footer .contact { float: left; width: 280px;}
 .site-footer .contact dt { width: 90px;}

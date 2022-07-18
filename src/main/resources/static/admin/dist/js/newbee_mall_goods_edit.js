@@ -211,7 +211,7 @@ $('#saveButton').click(function () {
                     title: swlMessage,
                     type: 'success',
                     showCancelButton: false,
-                    confirmButtonColor: '#1baeae',
+                    confirmButtonColor: '#a008c9',
                     confirmButtonText: '返回商品列表',
                     confirmButtonClass: 'btn btn-success',
                     buttonsStyling: false
