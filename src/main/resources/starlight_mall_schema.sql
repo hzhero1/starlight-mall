@@ -21,9 +21,9 @@ CREATE TABLE `tb_starlight_mall_admin_user`  (
 -- ----------------------------
 -- Records of tb_starlight_mall_admin_user
 -- ----------------------------
-INSERT INTO `tb_starlight_mall_admin_user` VALUES (1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', '十三', 0);
-INSERT INTO `tb_starlight_mall_admin_user` VALUES (2, 'starlight-admin1', 'e10adc3949ba59abbe56e057f20f883e', '新蜂01', 0);
-INSERT INTO `tb_starlight_mall_admin_user` VALUES (3, 'starlight-admin2', 'e10adc3949ba59abbe56e057f20f883e', '新蜂02', 0);
+INSERT INTO `tb_starlight_mall_admin_user` VALUES (1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'hzhero', 0);
+INSERT INTO `tb_starlight_mall_admin_user` VALUES (2, 'starlight-admin1', 'e10adc3949ba59abbe56e057f20f883e', '星光01', 0);
+INSERT INTO `tb_starlight_mall_admin_user` VALUES (3, 'starlight-admin2', 'e10adc3949ba59abbe56e057f20f883e', '星光', 0);
 
 -- ----------------------------
 -- Table structure for tb_starlight_mall_carousel
