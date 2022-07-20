@@ -10,4 +10,6 @@ public interface AdminUserService {
 
     Boolean updatePassword(Integer userId, String originalPassword, String newPassword);
 
+    Boolean updateName(Integer userId, String originalPassword, String newPassword);
+
 }

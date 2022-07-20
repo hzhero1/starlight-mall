@@ -32,4 +32,10 @@
         set login_password = #{newPassword, jdbcType=VARCHAR}
         where admin_user_id = #{userId, jdbcType=INTEGER} and login_password = #{originalPassword, jdbcType=VARCHAR}
     </update>
+
+    <update id="updateName">
+        update tb_starlight_mall_admin_user
+        set login_user_name = #{loginUserName, jdbcType=VARCHAR}, nick_name = #{nickName, jdbcType=VARCHAR}
+        where admin_user_id = #{userId, jdbcType=INTEGER}
+    </update>
 </mapper>

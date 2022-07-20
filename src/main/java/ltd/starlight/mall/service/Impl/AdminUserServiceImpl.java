@@ -31,4 +31,9 @@ public class AdminUserServiceImpl implements AdminUserService {
         String newPasswordMD5 = MD5Util.MD5Encode(newPassword, "UTF-8");
         return adminUserMapper.updatePassword(userId, originalPasswordMD5, newPasswordMD5);
     }
+
+    @Override
+    public Boolean updateName(Integer userId, String loginUserName, String nickName){
+        return adminUserMapper.updateName(userId, loginUserName, nickName);
+    }
 }

@@ -83,4 +83,29 @@ public class AdminController {
         return "修改失败";
     }
 
+    @PostMapping("/profile/name")
+    @ResponseBody
+    public String nameUpdate(HttpServletRequest request, @RequestParam("loginUserName") String loginUserName,
+                             @RequestParam("nickName") String nickName){
+        if(StringUtils.isEmpty(loginUserName) || StringUtils.isEmpty(nickName)){
+            return "登录名称和昵称不能为空";
+        }
+        Integer userId = (int) request.getSession().getAttribute("adminUserId");
+        if(adminUserService.updateName(userId, loginUserName, nickName)!=null){
+            request.getSession().removeAttribute("loginUserName");
+            request.getSession().removeAttribute("adminUserId");
+            request.getSession().removeAttribute("errorMsg");
+            return "success";
+        }
+        return "修改失败";
+    }
+
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request){
+        request.getSession().removeAttribute("loginUserName");
+        request.getSession().removeAttribute("adminUserId");
+        request.getSession().removeAttribute("errorMsg");
+        return "admin/login";
+    }
+
 }
