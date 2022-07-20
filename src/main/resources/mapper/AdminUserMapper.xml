@@ -10,7 +10,7 @@
     </resultMap>
     
     <sql id="Base_Column_List">
-        admin_user_id, login_user_name, login_password, nick_name, locked
+        admin_user_id, login_user_name, nick_name
     </sql>
 
     <select id="login" resultMap="BaseResultMap">
@@ -19,4 +19,17 @@
         from tb_starlight_mall_admin_user
         where login_user_name = #{userName, jdbcType=VARCHAR} and login_password = #{password, jdbcType=VARCHAR} and locked = 0
     </select>
+
+    <select id="getUserDetailById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_starlight_mall_admin_user
+        where admin_user_id = #{userId, jdbcType=INTEGER}
+    </select>
+
+    <update id="updatePassword">
+        update tb_starlight_mall_admin_user
+        set login_password = #{newPassword, jdbcType=VARCHAR}
+        where admin_user_id = #{userId, jdbcType=INTEGER} and login_password = #{originalPassword, jdbcType=VARCHAR}
+    </update>
 </mapper>

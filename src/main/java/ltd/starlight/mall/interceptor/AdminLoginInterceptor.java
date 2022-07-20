@@ -14,7 +14,7 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
                              Object handler) throws Exception {
         System.out.println("进入拦截器...");
-        if (request.getSession().getAttribute("loginUser") == null) {
+        if (request.getSession().getAttribute("loginUserName") == null) {
             request.getSession().setAttribute("errorMsg","请登录");
             response.sendRedirect("/admin/login");
             System.out.println("未登录，拦截成功...");
