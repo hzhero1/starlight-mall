@@ -31,7 +31,7 @@ public class AdminController {
     @PostMapping("/login")
     public String login(@RequestParam("userName") String userName,
                         @RequestParam("password") String password,
-                        @RequestParam("verifyCode") String verifyCode, HttpSession session, HttpServletRequest request) {
+                        @RequestParam("verifyCode") String verifyCode, HttpSession session) {
         if (StringUtils.isEmpty(verifyCode)) {
             session.setAttribute("errorMsg", "验证码不能为空");
             return "admin/login";
@@ -107,5 +107,4 @@ public class AdminController {
         request.getSession().removeAttribute("errorMsg");
         return "admin/login";
     }
-
 }

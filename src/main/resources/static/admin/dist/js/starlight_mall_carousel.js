@@ -93,7 +93,7 @@ $('#saveButton').click(function () {
         "carouselRank": carouselRank,
         "redirectUrl": redirectUrl
     };
-    var url = '/admin/carousels/save';
+    var url = '/admin/carousels/add';
     var id = getSelectedRowWithoutAlert();
     if (id != null) {
         url = '/admin/carousels/update';
