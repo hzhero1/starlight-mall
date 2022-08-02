@@ -3,7 +3,7 @@ package ltd.starlight.mall.service.Impl;
 import ltd.starlight.mall.common.ServiceResultEnum;
 import ltd.starlight.mall.dao.CarouselMapper;
 import ltd.starlight.mall.entity.Carousel;
-import ltd.starlight.mall.service.StarLightMallCarouselService;
+import ltd.starlight.mall.service.StarlightMallCarouselService;
 import ltd.starlight.mall.util.PageQueryUtil;
 import ltd.starlight.mall.util.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class StarLightMallCarouselServiceImpl implements StarLightMallCarouselService {
+public class StarlightMallCarouselServiceImpl implements StarlightMallCarouselService {
 
     @Autowired
-    CarouselMapper carouselMapper;
+    private CarouselMapper carouselMapper;
 
     @Override
     public PageResult getCarouselPage(PageQueryUtil pageUtil) {

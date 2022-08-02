@@ -4,7 +4,7 @@ import ltd.starlight.mall.entity.Carousel;
 import ltd.starlight.mall.util.PageQueryUtil;
 import ltd.starlight.mall.util.PageResult;
 
-public interface StarLightMallCarouselService {
+public interface StarlightMallCarouselService {
     /**
      * 查询后台管理系统轮播图分页数据
      *

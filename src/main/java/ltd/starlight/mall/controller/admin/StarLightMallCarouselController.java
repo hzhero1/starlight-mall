@@ -2,7 +2,7 @@ package ltd.starlight.mall.controller.admin;
 
 import ltd.starlight.mall.common.ServiceResultEnum;
 import ltd.starlight.mall.entity.Carousel;
-import ltd.starlight.mall.service.Impl.StarLightMallCarouselServiceImpl;
+import ltd.starlight.mall.service.Impl.StarlightMallCarouselServiceImpl;
 import ltd.starlight.mall.util.PageQueryUtil;
 import ltd.starlight.mall.util.PageResult;
 import ltd.starlight.mall.util.Result;
@@ -13,6 +13,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
 
@@ -21,7 +23,7 @@ import java.util.Objects;
 public class StarLightMallCarouselController {
 
     @Autowired
-    StarLightMallCarouselServiceImpl starLightMallCarouselService;
+    StarlightMallCarouselServiceImpl starLightMallCarouselService;
 
     @GetMapping
     public String carouselPage(HttpServletRequest request) {
@@ -41,10 +43,11 @@ public class StarLightMallCarouselController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public Result add(@RequestBody Carousel carousel) {
+    public Result add(@RequestBody Carousel carousel, HttpSession session) {
         if (StringUtils.isEmpty(carousel.getCarouselUrl()) || Objects.isNull(carousel.getCarouselRank())) {
             return ResultGenerator.genFailResult("参数异常！");
         }
+        carousel.setCreateUser((int) session.getAttribute("adminUserId"));
         String result = starLightMallCarouselService.addCarousel(carousel);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
@@ -55,10 +58,12 @@ public class StarLightMallCarouselController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public Result update(@RequestBody Carousel carousel) {
+    public Result update(@RequestBody Carousel carousel, HttpSession session) {
         if (StringUtils.isEmpty(carousel.getCarouselUrl()) || Objects.isNull(carousel.getCarouselRank())) {
             return ResultGenerator.genFailResult("参数异常！");
         }
+        carousel.setUpdateTime(new Date());
+        carousel.setUpdateUser((int) session.getAttribute("adminUserId"));
         String result = starLightMallCarouselService.updateCarousel(carousel);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
@@ -69,16 +74,16 @@ public class StarLightMallCarouselController {
 
     @RequestMapping(value = "/info/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Result info(@PathVariable("id") Integer id ) {
+    public Result info(@PathVariable("id") Integer id) {
         Carousel carousel = starLightMallCarouselService.getCarouselById(id);
-        if(carousel==null) return ResultGenerator.genFailResult(ServiceResultEnum.DATA_NOT_EXIST.getResult());
+        if (carousel == null) return ResultGenerator.genFailResult(ServiceResultEnum.DATA_NOT_EXIST.getResult());
         return ResultGenerator.genSuccessResult(carousel);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public Result delete(@RequestBody Integer[] ids ) {
-        if(starLightMallCarouselService.deleteBatch(ids)){
+    public Result delete(@RequestBody Integer[] ids) {
+        if (starLightMallCarouselService.deleteBatch(ids)) {
             return ResultGenerator.genSuccessResult();
         }
         return ResultGenerator.genFailResult("删除失败");
