@@ -19,7 +19,7 @@ import java.util.Objects;
 
 @Controller
 @RequestMapping("/admin")
-public class NewBeeMallGoodsCategoryController {
+public class StarlightMallGoodsCategoryController {
     @Resource
     StarlightMallCategoryServiceImpl starlightMallCategoryService;
 
