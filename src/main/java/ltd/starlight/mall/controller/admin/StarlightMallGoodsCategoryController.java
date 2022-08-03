@@ -18,12 +18,12 @@ import java.util.Map;
 import java.util.Objects;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/categories")
 public class StarlightMallGoodsCategoryController {
     @Resource
     StarlightMallCategoryServiceImpl starlightMallCategoryService;
 
-    @GetMapping("/categories")
+    @GetMapping
     public String categoriesPage(HttpServletRequest request, @RequestParam("categoryLevel") Byte categoryLevel,
                                  @RequestParam("parentId") Long parentId,
                                  @RequestParam("backParentId") Long backParentId) {
@@ -37,7 +37,7 @@ public class StarlightMallGoodsCategoryController {
         return "admin/starlight_mall_category";
     }
 
-    @RequestMapping(value = "/categories/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Result list(@RequestParam Map<String, Object> params) {
         if (StringUtils.isEmpty(params.get("page")) || StringUtils.isEmpty(params.get("limit")) || StringUtils.isEmpty(params.get("categoryLevel")) || StringUtils.isEmpty(params.get("parentId"))) {
@@ -47,11 +47,10 @@ public class StarlightMallGoodsCategoryController {
         return ResultGenerator.genSuccessResult(pageResult);
     }
 
-    @RequestMapping(value = "/categories/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public Result add(@RequestBody GoodsCategory goodsCategory) {
-        if (Objects.isNull(goodsCategory.getCategoryId())
-                || Objects.isNull(goodsCategory.getCategoryLevel())
+        if (Objects.isNull(goodsCategory.getCategoryLevel())
                 || StringUtils.isEmpty(goodsCategory.getCategoryName())
                 || Objects.isNull(goodsCategory.getParentId())
                 || Objects.isNull(goodsCategory.getCategoryRank())) {
@@ -65,7 +64,25 @@ public class StarlightMallGoodsCategoryController {
         }
     }
 
-    @GetMapping("/categories/info/{id}")
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @ResponseBody
+    public Result update(@RequestBody GoodsCategory goodsCategory) {
+        if (Objects.isNull(goodsCategory.getCategoryId())
+                || Objects.isNull(goodsCategory.getCategoryLevel())
+                || StringUtils.isEmpty(goodsCategory.getCategoryName())
+                || Objects.isNull(goodsCategory.getParentId())
+                || Objects.isNull(goodsCategory.getCategoryRank())) {
+            return ResultGenerator.genFailResult("参数异常！");
+        }
+        String result = starlightMallCategoryService.updateGoodsCategory(goodsCategory);
+        if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
+            return ResultGenerator.genSuccessResult();
+        } else {
+            return ResultGenerator.genFailResult(result);
+        }
+    }
+
+    @GetMapping("/info/{id}")
     @ResponseBody
     public Result info(@PathVariable("id") Long id) {
         GoodsCategory goodsCategory = starlightMallCategoryService.getGoodsCategoryById(id);
@@ -75,7 +92,7 @@ public class StarlightMallGoodsCategoryController {
         return ResultGenerator.genSuccessResult(goodsCategory);
     }
 
-    @RequestMapping(value = "/categories/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public Result delete(@RequestBody Integer[] ids) {
         if (ids.length < 1) {

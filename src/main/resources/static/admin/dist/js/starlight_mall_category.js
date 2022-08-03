@@ -111,7 +111,7 @@ $('#saveButton').click(function () {
             "parentId": parentId,
             "categoryRank": categoryRank
         };
-        var url = '/admin/categories/save';
+        var url = '/admin/categories/add';
         var id = getSelectedRowWithoutAlert();
         if (id != null) {
             url = '/admin/categories/update';
