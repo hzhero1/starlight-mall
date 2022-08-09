@@ -166,7 +166,7 @@ $('#saveButton').click(function () {
         });
         return;
     }
-    var url = '/admin/goods/save';
+    var url = '/admin/goods/add';
     var swlMessage = '保存成功';
     var data = {
         "goodsName": goodsName,

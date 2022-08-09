@@ -2,7 +2,7 @@ package ltd.starlight.mall.controller.admin;
 
 import ltd.starlight.mall.common.ServiceResultEnum;
 import ltd.starlight.mall.entity.Carousel;
-import ltd.starlight.mall.service.Impl.StarlightMallCarouselServiceImpl;
+import ltd.starlight.mall.service.StarlightMallCarouselService;
 import ltd.starlight.mall.util.PageQueryUtil;
 import ltd.starlight.mall.util.PageResult;
 import ltd.starlight.mall.util.Result;
@@ -23,7 +23,7 @@ import java.util.Objects;
 public class StarLightMallCarouselController {
 
     @Autowired
-    StarlightMallCarouselServiceImpl starLightMallCarouselService;
+    StarlightMallCarouselService starLightMallCarouselService;
 
     @GetMapping
     public String carouselPage(HttpServletRequest request) {

@@ -2,7 +2,6 @@ package ltd.starlight.mall.controller.admin;
 
 import ltd.starlight.mall.entity.AdminUser;
 import ltd.starlight.mall.service.AdminUserService;
-import ltd.starlight.mall.service.Impl.AdminUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +14,7 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/admin")
 public class AdminController {
     @Autowired
-    private AdminUserServiceImpl adminUserService;
+    private AdminUserService adminUserService;
 
     @GetMapping("/index")
     public String index(HttpServletRequest request, HttpSession session) {

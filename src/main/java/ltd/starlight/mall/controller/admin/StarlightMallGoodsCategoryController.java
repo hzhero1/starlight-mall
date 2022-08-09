@@ -1,27 +1,27 @@
 package ltd.starlight.mall.controller.admin;
 
 import ltd.starlight.mall.common.ServiceResultEnum;
+import ltd.starlight.mall.common.StarlightMallCategoryLevelEnum;
 import ltd.starlight.mall.entity.GoodsCategory;
-import ltd.starlight.mall.service.Impl.StarlightMallCategoryServiceImpl;
+import ltd.starlight.mall.service.StarlightMallCategoryService;
 import ltd.starlight.mall.util.PageQueryUtil;
 import ltd.starlight.mall.util.PageResult;
 import ltd.starlight.mall.util.Result;
 import ltd.starlight.mall.util.ResultGenerator;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Controller
 @RequestMapping("/admin/categories")
 public class StarlightMallGoodsCategoryController {
     @Resource
-    StarlightMallCategoryServiceImpl starlightMallCategoryService;
+    StarlightMallCategoryService starlightMallCategoryService;
 
     @GetMapping
     public String categoriesPage(HttpServletRequest request, @RequestParam("categoryLevel") Byte categoryLevel,
@@ -40,7 +40,10 @@ public class StarlightMallGoodsCategoryController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Result list(@RequestParam Map<String, Object> params) {
-        if (StringUtils.isEmpty(params.get("page")) || StringUtils.isEmpty(params.get("limit")) || StringUtils.isEmpty(params.get("categoryLevel")) || StringUtils.isEmpty(params.get("parentId"))) {
+        if (StringUtils.isEmpty(params.get("page"))
+                || StringUtils.isEmpty(params.get("limit"))
+                || StringUtils.isEmpty(params.get("categoryLevel"))
+                || StringUtils.isEmpty(params.get("parentId"))) {
             return ResultGenerator.genFailResult("参数异常！");
         }
         PageResult pageResult = starlightMallCategoryService.getCategoriesPage(new PageQueryUtil(params));
@@ -102,6 +105,43 @@ public class StarlightMallGoodsCategoryController {
             return ResultGenerator.genSuccessResult();
         }
         return ResultGenerator.genFailResult("删除失败！");
+    }
+
+    @RequestMapping(value = "/listForSelect", method = RequestMethod.GET)
+    @ResponseBody
+    public Result listForSelect(@RequestParam("categoryId") Long categoryId) {
+        if (categoryId == null || categoryId < 1) {
+            return ResultGenerator.genFailResult("缺少参数！");
+        }
+        GoodsCategory category = starlightMallCategoryService.getGoodsCategoryById(categoryId);
+        //既不是一级分类也不是二级分类则为不返回数据
+        if (category == null || category.getCategoryLevel() == StarlightMallCategoryLevelEnum.LEVEL_THREE.getLevel()) {
+            return ResultGenerator.genFailResult("参数异常！");
+        }
+        Map categoryResult = new HashMap(2);
+        if (category.getCategoryLevel() == StarlightMallCategoryLevelEnum.LEVEL_ONE.getLevel()) {
+            //如果是一级分类则返回当前一级分类下的所有二级分类，以及二级分类列表中第一条数据下的所有三级分类列表
+            //查询一级分类列表中第一个实体的所有二级分类
+            List<GoodsCategory> secondLevelCategories = starlightMallCategoryService
+                    .selectByLevelAndParentIdsAndNumber(Collections.singletonList(categoryId),
+                            StarlightMallCategoryLevelEnum.LEVEL_TWO.getLevel());
+            if (!CollectionUtils.isEmpty(secondLevelCategories)) {
+                //查询二级分类列表中第一个实体的所有三级分类
+                List<GoodsCategory> thirdLevelCategories = starlightMallCategoryService
+                        .selectByLevelAndParentIdsAndNumber(Collections.singletonList(secondLevelCategories.get(0).getCategoryId()),
+                                StarlightMallCategoryLevelEnum.LEVEL_THREE.getLevel());
+                categoryResult.put("secondLevelCategories", secondLevelCategories);
+                categoryResult.put("thirdLevelCategories", thirdLevelCategories);
+            }
+        }
+        if (category.getCategoryLevel() == StarlightMallCategoryLevelEnum.LEVEL_TWO.getLevel()) {
+            //如果是二级分类则返回当前分类下的所有三级分类列表
+            List<GoodsCategory> thirdLevelCategories = starlightMallCategoryService
+                    .selectByLevelAndParentIdsAndNumber(Collections.singletonList(categoryId),
+                            StarlightMallCategoryLevelEnum.LEVEL_THREE.getLevel());
+            categoryResult.put("thirdLevelCategories", thirdLevelCategories);
+        }
+        return ResultGenerator.genSuccessResult(categoryResult);
     }
 
 }
