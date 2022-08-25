@@ -1,6 +1,7 @@
+<!-- Copyright (c) 2019-2020 十三 all rights reserved. -->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="mall/header::head-fragment('starlight商城-首页','index')">
+<head th:replace="mall/header::head-fragment('Starlight商城-首页','index')">
 </head>
 <body>
 <header th:replace="mall/header::header-fragment"></header>
@@ -9,25 +10,25 @@
     <div id="banner">
         <div class="all-sort-list">
             <th:block th:each="category : ${categories}">
-            <div class="item">
-                <h3><span>·</span><a href="##"><th:block th:text="${category.categoryName}"></th:block></a></h3>
-                <div class="item-list clearfix">
-                    <div class="subitem">
-                        <th:block th:each="secondLevelCategory : ${category.secondLevelCategoryVOS}">
-                        <dl class="fore1">
-                            <dt><a href="#"><th:block th:text="${secondLevelCategory.categoryName}"></th:block></a></dt>
-                            <dd>
-                                <th:block th:each="thirdLevelCategory : ${secondLevelCategory.thirdLevelCategoryVOS}">
-                                <em><a href="#"th:href="@{'/search?goodsCategoryId='+${thirdLevelCategory.categoryId}}">
-                                    <th:block th:text="${thirdLevelCategory.categoryName}"></th:block>
-                                </a></em>
-                                </th:block>
-                            </dd>
-                        </dl>
-                        </th:block>
+                <div class="item">
+                    <h3><span>·</span><a href="##"><th:block th:text="${category.categoryName}"></th:block></a></h3>
+                    <div class="item-list clearfix">
+                        <div class="subitem">
+                            <th:block th:each="secondLevelCategory : ${category.secondLevelCategoryVOS}">
+                                <dl class="fore1">
+                                    <dt><a href="#"><th:block th:text="${secondLevelCategory.categoryName}"></th:block></a></dt>
+                                    <dd>
+                                        <th:block th:each="thirdLevelCategory : ${secondLevelCategory.thirdLevelCategoryVOS}">
+                                            <em><a href="#"th:href="@{'/search?goodsCategoryId='+${thirdLevelCategory.categoryId}}">
+                                                <th:block th:text="${thirdLevelCategory.categoryName}"></th:block>
+                                            </a></em>
+                                        </th:block>
+                                    </dd>
+                                </dl>
+                            </th:block>
+                        </div>
                     </div>
                 </div>
-            </div>
             </th:block>
         </div>
         <div class="swiper-container fl">
@@ -106,9 +107,9 @@
                     <li>
                         <a th:href="@{'/goods/detail/'+${newGoods.goodsId}}">
                             <img th:src="@{${newGoods.goodsCoverImg}}" th:alt="${newGoods.goodsName}">
-                            <p class="name" th:text="${newGoods.goodsName}">starlightMall</p>
-                            <p class="discount" th:text="${newGoods.goodsIntro}">starlightMall</p>
-                            <p class="item_price" th:text="${newGoods.sellingPrice}">starlightMall</p>
+                            <p class="name" th:text="${newGoods.goodsName}">StarlightMall</p>
+                            <p class="discount" th:text="${newGoods.goodsIntro}">StarlightMall</p>
+                            <p class="item_price" th:text="${newGoods.sellingPrice}">StarlightMall</p>
                         </a>
                     </li>
                 </th:block>
@@ -172,11 +173,11 @@
                                 新品
                             </div>
                             <img th:src="@{${recommendGoods.goodsCoverImg}}" th:alt="${recommendGoods.goodsName}">
-                            <p class="name" th:text="${recommendGoods.goodsName}">starlightMall</p>
-                            <p class="item_price" th:text="${recommendGoods.sellingPrice}">starlightMall</p>
+                            <p class="name" th:text="${recommendGoods.goodsName}">StarlightMall</p>
+                            <p class="item_price" th:text="${recommendGoods.sellingPrice}">StarlightMall</p>
                             <p class="counter">猜你喜欢</p>
                             <div class="comment">
-                                <p>新蜂精选</p>
+                                <p>星光精选</p>
                                 <p>好物也可以不贵</p>
                             </div>
                         </a>
@@ -195,7 +196,7 @@
                         <p class="price">1499元</p>
                         <p class="counter">猜你喜欢</p>
                         <div class="comment">
-                            <p>新蜂精选</p>
+                            <p>星光精选</p>
                             <p>好物也可以不贵</p>
                         </div>
                     </a>
@@ -210,7 +211,7 @@
                         <p class="price">1499元</p>
                         <p class="counter">猜你喜欢</p>
                         <div class="comment">
-                            <p>新蜂精选</p>
+                            <p>星光精选</p>
                             <p>好物也可以不贵</p>
                         </div>
                     </a>
@@ -225,7 +226,7 @@
                         <p class="price">1499元</p>
                         <p class="counter">猜你喜欢</p>
                         <div class="comment">
-                            <p>新蜂精选</p>
+                            <p>星光精选</p>
                             <p>好物也可以不贵</p>
                         </div>
                     </a>
@@ -240,7 +241,7 @@
                         <p class="price">1499元</p>
                         <p class="counter">猜你喜欢</p>
                         <div class="comment">
-                            <p>新蜂精选</p>
+                            <p>星光精选</p>
                             <p>好物也可以不贵</p>
                         </div>
                     </a>
@@ -255,7 +256,7 @@
                         <p class="price">1499元</p>
                         <p class="counter">猜你喜欢</p>
                         <div class="comment">
-                            <p>新蜂精选</p>
+                            <p>星光精选</p>
                             <p>好物也可以不贵</p>
                         </div>
                     </a>
@@ -270,7 +271,7 @@
                         <p class="price">1499元</p>
                         <p class="counter">猜你喜欢</p>
                         <div class="comment">
-                            <p>新蜂精选</p>
+                            <p>星光精选</p>
                             <p>好物也可以不贵</p>
                         </div>
                     </a>
@@ -285,7 +286,7 @@
                         <p class="price">1499元</p>
                         <p class="counter">猜你喜欢</p>
                         <div class="comment">
-                            <p>新蜂精选</p>
+                            <p>星光精选</p>
                             <p>好物也可以不贵</p>
                         </div>
                     </a>
@@ -300,7 +301,7 @@
                         <p class="price">1499元</p>
                         <p class="counter">猜你喜欢</p>
                         <div class="comment">
-                            <p>新蜂精选</p>
+                            <p>星光精选</p>
                             <p>好物也可以不贵</p>
                         </div>
                     </a>
@@ -315,7 +316,7 @@
                         <p class="price">1499元</p>
                         <p class="counter">猜你喜欢</p>
                         <div class="comment">
-                            <p>新蜂精选</p>
+                            <p>星光精选</p>
                             <p>好物也可以不贵</p>
                         </div>
                     </a>
@@ -330,7 +331,7 @@
                         <p class="price">1499元</p>
                         <p class="counter">猜你喜欢</p>
                         <div class="comment">
-                            <p>新蜂精选</p>
+                            <p>星光精选</p>
                             <p>好物也可以不贵</p>
                         </div>
                     </a>

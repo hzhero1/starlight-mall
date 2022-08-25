@@ -1,5 +1,6 @@
 package ltd.starlight.mall.config;
 
+import ltd.starlight.mall.common.Constants;
 import ltd.starlight.mall.interceptor.AdminLoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +25,9 @@ public class StarlightMallWebMvcConfigurer implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/upload/**")
-                .addResourceLocations("file:D:\\upload\\");
+                .addResourceLocations("file:" + Constants.FILE_UPLOAD_DIC);
+        registry.addResourceHandler("/goods-img/**")
+                .addResourceLocations("file:" + Constants.FILE_UPLOAD_DIC);
+
     }
 }

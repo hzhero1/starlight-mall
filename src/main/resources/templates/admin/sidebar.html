@@ -41,6 +41,33 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a th:href="@{/admin/indexConfigs?configType=3}"
+                       th:class="${path}=='INDEX_GOODS_HOTS'?'nav-link active':'nav-link'">
+                        <i class="nav-icon fa fa-hand-o-up"></i>
+                        <p>
+                            热销商品配置
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/admin/indexConfigs?configType=4}"
+                       th:class="${path}=='INDEX_GOODS_NEW'?'nav-link active':'nav-link'">
+                        <i class="nav-icon fa fa-hand-o-up"></i>
+                        <p>
+                            新品上线配置
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/admin/indexConfigs?configType=5}"
+                       th:class="${path}=='INDEX_GOODS_RECOMMOND'?'nav-link active':'nav-link'">
+                        <i class="nav-icon fa fa-hand-o-up"></i>
+                        <p>
+                            为你推荐配置
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-header">首页配置</li>
                 <li class="nav-item">
                     <a th:href="@{/admin/carousels}"
@@ -58,6 +85,14 @@
                         <i class="fa fa-list-alt nav-icon" aria-hidden="true"></i>
                         <p>
                             分类管理
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/admin/goods}" th:class="${path}=='starlight_mall_goods'?'nav-link active':'nav-link'">
+                        <i class="fa fa-archive nav-icon" aria-hidden="true"></i>
+                        <p>
+                            商品管理
                         </p>
                     </a>
                 </li>

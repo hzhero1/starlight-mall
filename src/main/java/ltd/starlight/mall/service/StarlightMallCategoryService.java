@@ -4,6 +4,7 @@ package ltd.starlight.mall.service;
 import ltd.starlight.mall.entity.GoodsCategory;
 import ltd.starlight.mall.util.PageQueryUtil;
 import ltd.starlight.mall.util.PageResult;
+import ltd.starlight.mall.vo.StarlightMallIndexCategoryVO;
 
 import java.util.List;
 
@@ -18,7 +19,6 @@ public interface StarlightMallCategoryService {
     GoodsCategory getGoodsCategoryById(Long id);
 
     Boolean deleteBatch(Integer[] ids);
-
     /**
      * 根据parentId和level获取分类列表
      *
@@ -27,5 +27,7 @@ public interface StarlightMallCategoryService {
      * @return
      */
     List<GoodsCategory> selectByLevelAndParentIdsAndNumber(List<Long> parentIds, int categoryLevel);
+
+    List<StarlightMallIndexCategoryVO> getCategoriesForIndex();
 
 }

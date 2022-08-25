@@ -78,7 +78,7 @@ $('#saveButton').click(function () {
             "goodsId": goodsId,
             "configRank": configRank
         };
-        var url = '/admin/indexConfigs/save';
+        var url = '/admin/indexConfigs/add';
         var id = getSelectedRowWithoutAlert();
         if (id != null) {
             url = '/admin/indexConfigs/update';
