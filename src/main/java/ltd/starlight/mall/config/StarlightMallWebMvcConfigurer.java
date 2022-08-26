@@ -2,6 +2,7 @@ package ltd.starlight.mall.config;
 
 import ltd.starlight.mall.common.Constants;
 import ltd.starlight.mall.interceptor.AdminLoginInterceptor;
+import ltd.starlight.mall.interceptor.StarlightMallLoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -13,6 +14,9 @@ public class StarlightMallWebMvcConfigurer implements WebMvcConfigurer {
     @Autowired
     AdminLoginInterceptor adminLoginInterceptor;
 
+    @Autowired
+    StarlightMallLoginInterceptor starlightMallLoginInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry){
         registry.addInterceptor(adminLoginInterceptor)
@@ -20,6 +24,22 @@ public class StarlightMallWebMvcConfigurer implements WebMvcConfigurer {
                 .excludePathPatterns("/admin/login")
                 .excludePathPatterns("/admin/dist/**")
                 .excludePathPatterns("/admin/plugins/**");
+
+        registry.addInterceptor(starlightMallLoginInterceptor)
+                .excludePathPatterns("/admin/**")
+                .excludePathPatterns("/register")
+                .excludePathPatterns("/login")
+                .excludePathPatterns("/logout")
+                .addPathPatterns("/goods/detail/**")
+                .addPathPatterns("/shop-cart")
+                .addPathPatterns("/shop-cart/**")
+                .addPathPatterns("/saveOrder")
+                .addPathPatterns("/orders")
+                .addPathPatterns("/orders/**")
+                .addPathPatterns("/personal")
+                .addPathPatterns("/personal/updateInfo")
+                .addPathPatterns("/selectPayType")
+                .addPathPatterns("/payPage");
     }
 
     @Override

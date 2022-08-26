@@ -3,6 +3,7 @@ package ltd.starlight.mall.controller.common;
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.base.Captcha;
 import com.wf.captcha.utils.CaptchaUtil;
+import ltd.starlight.mall.common.Constants;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +39,25 @@ public class CaptchaController {
         request.getSession().setAttribute("verifyCode", captcha.text().toLowerCase());
 
         // 输出图片流
+        captcha.out(response.getOutputStream());
+    }
+
+    @GetMapping("/common/mall/captcha")
+    public void mallCaptcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // 设置请求头为输出图片类型
+        response.setContentType("image/png");
+        response.setHeader("Pragma", "No-cache");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setDateHeader("Expires", 0);
+
+        SpecCaptcha captcha = new SpecCaptcha(110, 40,4);
+
+        captcha.setCharType(Captcha.TYPE_DEFAULT);
+
+        captcha.setCharType(Captcha.FONT_1);
+
+        request.getSession().setAttribute(Constants.MALL_VERIFY_CODE_KEY, captcha.text().toLowerCase());
+
         captcha.out(response.getOutputStream());
     }
 
