@@ -3,8 +3,7 @@ package ltd.starlight.mall.service;
 import ltd.starlight.mall.entity.IndexConfig;
 import ltd.starlight.mall.util.PageQueryUtil;
 import ltd.starlight.mall.util.PageResult;
-import ltd.starlight.mall.vo.StarlightMallIndexConfigGoodsVO;
-import org.springframework.stereotype.Service;
+import ltd.starlight.mall.controller.vo.StarlightMallIndexConfigGoodsVO;
 
 import java.util.List;
 

@@ -6,7 +6,7 @@
  * Copyright (c) 2019-2020 十三 all rights reserved.
  * 版权所有，侵权必究！
  */
-package ltd.starlight.mall.vo;
+package ltd.starlight.mall.controller.vo;
 
 import lombok.Getter;
 import lombok.Setter;

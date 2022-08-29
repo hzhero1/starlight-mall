@@ -1,11 +1,17 @@
-package ltd.starlight.mall.vo;
+package ltd.starlight.mall.controller.vo;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
+import java.io.Serializable;
+
+/**
+ * 搜索列表页商品VO
+ */
 @Getter
-public class StarlightMallIndexConfigGoodsVO {
+@Setter
+public class StarlightMallSearchGoodsVO implements Serializable {
+
     private Long goodsId;
 
     private String goodsName;
@@ -16,5 +22,4 @@ public class StarlightMallIndexConfigGoodsVO {
 
     private Integer sellingPrice;
 
-    private String tag;
 }

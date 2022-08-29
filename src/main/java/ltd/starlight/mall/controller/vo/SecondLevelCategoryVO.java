@@ -1,5 +1,5 @@
 
-package ltd.starlight.mall.vo;
+package ltd.starlight.mall.controller.vo;
 
 import lombok.Getter;
 import lombok.Setter;

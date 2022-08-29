@@ -7,7 +7,7 @@ import ltd.starlight.mall.service.StarlightMallCarouselService;
 import ltd.starlight.mall.util.BeanUtil;
 import ltd.starlight.mall.util.PageQueryUtil;
 import ltd.starlight.mall.util.PageResult;
-import ltd.starlight.mall.vo.StarlightMallIndexCarouselVO;
+import ltd.starlight.mall.controller.vo.StarlightMallIndexCarouselVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;

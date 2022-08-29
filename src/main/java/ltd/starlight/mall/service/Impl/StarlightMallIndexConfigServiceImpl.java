@@ -5,19 +5,16 @@ import ltd.starlight.mall.dao.IndexConfigMapper;
 import ltd.starlight.mall.dao.StarlightMallGoodsMapper;
 import ltd.starlight.mall.entity.IndexConfig;
 import ltd.starlight.mall.entity.StarlightMallGoods;
-import ltd.starlight.mall.service.StarlightMallGoodsService;
 import ltd.starlight.mall.service.StarlightMallIndexConfigService;
 import ltd.starlight.mall.util.BeanUtil;
 import ltd.starlight.mall.util.PageQueryUtil;
 import ltd.starlight.mall.util.PageResult;
-import ltd.starlight.mall.vo.StarlightMallIndexConfigGoodsVO;
+import ltd.starlight.mall.controller.vo.StarlightMallIndexConfigGoodsVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 

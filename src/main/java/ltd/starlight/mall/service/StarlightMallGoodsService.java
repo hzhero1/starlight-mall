@@ -15,4 +15,7 @@ public interface StarlightMallGoodsService {
     PageResult getStarlightMallGoodsPage(PageQueryUtil pageUtil);
 
     Boolean batchUpdateSellStatus(Long[] ids,int sellStatus);
+
+    PageResult searchStarlightMallGoods(PageQueryUtil pageUtil);
+
 }

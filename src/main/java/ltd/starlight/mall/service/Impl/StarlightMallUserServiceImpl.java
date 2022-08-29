@@ -8,7 +8,7 @@ import ltd.starlight.mall.entity.MallUser;
 import ltd.starlight.mall.service.StarlightMallUserService;
 import ltd.starlight.mall.util.BeanUtil;
 import ltd.starlight.mall.util.MD5Util;
-import ltd.starlight.mall.vo.StarlightMallUserVO;
+import ltd.starlight.mall.controller.vo.StarlightMallUserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -21,4 +21,8 @@ public interface StarlightMallGoodsMapper {
     int getTotalStarlightMallGoods(PageQueryUtil pageUtil);
 
     int batchUpdateSellStatus(@Param("goodsIds")Long[] goodsIds, @Param("sellStatus") int sellStatus);
+
+    List<StarlightMallGoods> findStarlightMallGoodsListBySearch(PageQueryUtil pageUtil);
+
+    int getTotalStarlightMallGoodsBySearch(PageQueryUtil pageUtil);
 }

@@ -3,7 +3,7 @@ package ltd.starlight.mall.service;
 import ltd.starlight.mall.entity.Carousel;
 import ltd.starlight.mall.util.PageQueryUtil;
 import ltd.starlight.mall.util.PageResult;
-import ltd.starlight.mall.vo.StarlightMallIndexCarouselVO;
+import ltd.starlight.mall.controller.vo.StarlightMallIndexCarouselVO;
 
 import java.util.List;
 

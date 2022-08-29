@@ -3,16 +3,16 @@ package ltd.starlight.mall.service.Impl;
 import ltd.starlight.mall.common.Constants;
 import ltd.starlight.mall.common.ServiceResultEnum;
 import ltd.starlight.mall.common.StarlightMallCategoryLevelEnum;
+import ltd.starlight.mall.controller.vo.SearchPageCategoryVO;
 import ltd.starlight.mall.dao.GoodsCategoryMapper;
 import ltd.starlight.mall.entity.GoodsCategory;
 import ltd.starlight.mall.service.StarlightMallCategoryService;
 import ltd.starlight.mall.util.BeanUtil;
 import ltd.starlight.mall.util.PageQueryUtil;
 import ltd.starlight.mall.util.PageResult;
-import ltd.starlight.mall.vo.SecondLevelCategoryVO;
-import ltd.starlight.mall.vo.StarlightMallIndexCarouselVO;
-import ltd.starlight.mall.vo.StarlightMallIndexCategoryVO;
-import ltd.starlight.mall.vo.ThirdLevelCategoryVO;
+import ltd.starlight.mall.controller.vo.SecondLevelCategoryVO;
+import ltd.starlight.mall.controller.vo.StarlightMallIndexCategoryVO;
+import ltd.starlight.mall.controller.vo.ThirdLevelCategoryVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -147,5 +147,26 @@ public class StarlightMallCategoryServiceImpl implements StarlightMallCategorySe
         } else {
             return null;
         }
+    }
+
+    @Override
+    public SearchPageCategoryVO getCategoriesForSearch(Long categoryId) {
+        SearchPageCategoryVO searchPageCategoryVO = new SearchPageCategoryVO();
+        GoodsCategory thirdLevelGoodsCategory = goodsCategoryMapper.selectByPrimaryKey(categoryId);
+        if (thirdLevelGoodsCategory != null && thirdLevelGoodsCategory.getCategoryLevel() == StarlightMallCategoryLevelEnum.LEVEL_THREE.getLevel()) {
+            //获取当前三级分类的二级分类
+            GoodsCategory secondLevelGoodsCategory = goodsCategoryMapper.selectByPrimaryKey(thirdLevelGoodsCategory.getParentId());
+            if (secondLevelGoodsCategory != null && secondLevelGoodsCategory.getCategoryLevel() == StarlightMallCategoryLevelEnum.LEVEL_TWO.getLevel()) {
+                //获取当前二级分类下的三级分类List
+                List<GoodsCategory> thirdLevelCategories = goodsCategoryMapper.selectByLevelAndParentIdsAndNumber(Collections
+                        .singletonList(secondLevelGoodsCategory.getCategoryId()), StarlightMallCategoryLevelEnum.LEVEL_THREE.getLevel(),
+                        Constants.SEARCH_CATEGORY_NUMBER);
+                searchPageCategoryVO.setCurrentCategoryName(thirdLevelGoodsCategory.getCategoryName());
+                searchPageCategoryVO.setSecondLevelCategoryName(secondLevelGoodsCategory.getCategoryName());
+                searchPageCategoryVO.setThirdLevelCategoryList(thirdLevelCategories);
+                return searchPageCategoryVO;
+            }
+        }
+        return null;
     }
 }
