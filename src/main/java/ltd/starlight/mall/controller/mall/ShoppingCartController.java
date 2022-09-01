@@ -55,7 +55,7 @@ public class ShoppingCartController {
     @PostMapping("/shop-cart")
     @ResponseBody
     public Result addStarlightMallShoppingCartItem(@RequestBody StarlightMallShoppingCartItem starlightMallShoppingCartItem,
-                                                 HttpSession httpSession) {
+                                                   HttpSession httpSession) {
         StarlightMallUserVO user = (StarlightMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         starlightMallShoppingCartItem.setUserId(user.getUserId());
         String result = starlightMallShoppingCartService.addStarlightMallCartItem(starlightMallShoppingCartItem);
@@ -68,7 +68,7 @@ public class ShoppingCartController {
     @PutMapping("/shop-cart")
     @ResponseBody
     public Result updateStarlightMallShoppingCartItem(@RequestBody StarlightMallShoppingCartItem starlightMallShoppingCartItem,
-                                                   HttpSession httpSession) {
+                                                      HttpSession httpSession) {
         StarlightMallUserVO user = (StarlightMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         starlightMallShoppingCartItem.setUserId(user.getUserId());
         String updateResult = starlightMallShoppingCartService.updateStarlightMallCartItem(starlightMallShoppingCartItem);
@@ -86,14 +86,33 @@ public class ShoppingCartController {
     @DeleteMapping("/shop-cart/{starlightMallShoppingCartItemId}")
     @ResponseBody
     public Result updateStarlightMallShoppingCartItem(@PathVariable("starlightMallShoppingCartItemId") Long starlightMallShoppingCartItemId,
-                                                   HttpSession session) {
+                                                      HttpSession session) {
         StarlightMallUserVO user = (StarlightMallUserVO) session.getAttribute(Constants.MALL_USER_SESSION_KEY);
-        Boolean deleteResult = starlightMallShoppingCartService.deleteById(starlightMallShoppingCartItemId,session );
+        Boolean deleteResult = starlightMallShoppingCartService.deleteById(starlightMallShoppingCartItemId, session);
         //删除成功
         if (deleteResult) {
             return ResultGenerator.genSuccessResult();
         }
         //删除失败
         return ResultGenerator.genFailResult(ServiceResultEnum.OPERATE_ERROR.getResult());
+    }
+
+    @GetMapping("/shop-cart/settle")
+    public String settlePage(HttpServletRequest request, HttpSession session) {
+        int totalPrice = 0;
+        StarlightMallUserVO user = (StarlightMallUserVO) session.getAttribute(Constants.MALL_USER_SESSION_KEY);
+        List<StarlightMallShoppingCartItemVO> myShoppingCartItems = starlightMallShoppingCartService.getMyShoppingCartItems(user.getUserId());
+        if (CollectionUtils.isEmpty(myShoppingCartItems)) {
+            return "mall/cart";
+        }
+        for (StarlightMallShoppingCartItemVO myShoppingCartItem : myShoppingCartItems) {
+            totalPrice += myShoppingCartItem.getGoodsCount() * myShoppingCartItem.getSellingPrice();
+        }
+        if (totalPrice < 1) {
+            return "error/error_5xx";
+        }
+        request.setAttribute("priceTotal", totalPrice);
+        request.setAttribute("myShoppingCartItems", myShoppingCartItems);
+        return "mall/order-settle";
     }
 }

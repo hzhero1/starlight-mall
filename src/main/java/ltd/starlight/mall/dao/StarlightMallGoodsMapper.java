@@ -1,6 +1,7 @@
 package ltd.starlight.mall.dao;
 
 import ltd.starlight.mall.entity.StarlightMallGoods;
+import ltd.starlight.mall.entity.StockNumDTO;
 import ltd.starlight.mall.util.PageQueryUtil;
 import org.apache.ibatis.annotations.Param;
 
@@ -25,4 +26,6 @@ public interface StarlightMallGoodsMapper {
     List<StarlightMallGoods> findStarlightMallGoodsListBySearch(PageQueryUtil pageUtil);
 
     int getTotalStarlightMallGoodsBySearch(PageQueryUtil pageUtil);
+
+    int updateStockNumber(@Param("stockNumDTOS") List<StockNumDTO> stockNumDTOS);
 }
