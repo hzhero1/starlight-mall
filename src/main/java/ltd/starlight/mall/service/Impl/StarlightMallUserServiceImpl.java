@@ -4,21 +4,26 @@ package ltd.starlight.mall.service.Impl;
 import ltd.starlight.mall.common.Constants;
 import ltd.starlight.mall.common.ServiceResultEnum;
 import ltd.starlight.mall.dao.MallUserMapper;
+import ltd.starlight.mall.dao.StarlightMallShoppingCartItemMapper;
 import ltd.starlight.mall.entity.MallUser;
 import ltd.starlight.mall.service.StarlightMallUserService;
-import ltd.starlight.mall.util.BeanUtil;
-import ltd.starlight.mall.util.MD5Util;
+import ltd.starlight.mall.util.*;
 import ltd.starlight.mall.controller.vo.StarlightMallUserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Service
 public class StarlightMallUserServiceImpl implements StarlightMallUserService {
 
     @Autowired
     MallUserMapper mallUserMapper;
+
+    @Autowired
+    StarlightMallShoppingCartItemMapper starlightMallShoppingCartItemMapper;
 
     @Override
     public String register(String loginName, String password) {
@@ -50,10 +55,51 @@ public class StarlightMallUserServiceImpl implements StarlightMallUserService {
             }
             StarlightMallUserVO starlightMallUserVO = new StarlightMallUserVO();
             BeanUtil.copyProperties(user, starlightMallUserVO);
+            starlightMallUserVO.setShopCartItemCount(starlightMallShoppingCartItemMapper.selectCountByUserId(user.getUserId()));
             httpSession.setAttribute(Constants.MALL_USER_SESSION_KEY, starlightMallUserVO);
             return ServiceResultEnum.SUCCESS.getResult();
         }
         return ServiceResultEnum.LOGIN_ERROR.getResult();
     }
 
+    @Override
+    public StarlightMallUserVO updateUserInfo(MallUser mallUser, HttpSession httpSession) {
+        StarlightMallUserVO userTemp = (StarlightMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+        MallUser userFromDB = mallUserMapper.selectByPrimaryKey(userTemp.getUserId());
+        if (userFromDB != null) {
+            if (!StringUtils.isEmpty(mallUser.getNickName())) {
+                userFromDB.setNickName(StarlightMallUtils.cleanString(mallUser.getNickName()));
+            }
+            if (!StringUtils.isEmpty(mallUser.getAddress())) {
+                userFromDB.setAddress(StarlightMallUtils.cleanString(mallUser.getAddress()));
+            }
+            if (!StringUtils.isEmpty(mallUser.getIntroduceSign())) {
+                userFromDB.setIntroduceSign(StarlightMallUtils.cleanString(mallUser.getIntroduceSign()));
+            }
+            if (mallUserMapper.updateByPrimaryKeySelective(userFromDB) > 0) {
+                StarlightMallUserVO starlightMallUserVO = new StarlightMallUserVO();
+                userFromDB = mallUserMapper.selectByPrimaryKey(mallUser.getUserId());
+                BeanUtil.copyProperties(userFromDB, starlightMallUserVO);
+                httpSession.setAttribute(Constants.MALL_USER_SESSION_KEY, starlightMallUserVO);
+                return starlightMallUserVO;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public PageResult getStarlightMallUsersPage(PageQueryUtil pageUtil) {
+        List<MallUser> mallUsers = mallUserMapper.findMallUserList(pageUtil);
+        int total = mallUserMapper.getTotalMallUsers(pageUtil);
+        PageResult pageResult = new PageResult(mallUsers, total, pageUtil.getLimit(), pageUtil.getPage());
+        return pageResult;
+    }
+
+    @Override
+    public Boolean lockUsers(Integer[] ids, int lockStatus) {
+        if (ids.length < 1) {
+            return false;
+        }
+        return mallUserMapper.lockUserBatch(ids, lockStatus) > 0;
+    }
 }

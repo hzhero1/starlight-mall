@@ -27,5 +27,5 @@ public interface StarlightMallGoodsMapper {
 
     int getTotalStarlightMallGoodsBySearch(PageQueryUtil pageUtil);
 
-    int updateStockNumber(@Param("stockNumDTOS") List<StockNumDTO> stockNumDTOS);
+    int updateStockNum(@Param("stockNumDTOS") List<StockNumDTO> stockNumDTOS);
 }

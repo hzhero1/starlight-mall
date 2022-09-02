@@ -2,6 +2,8 @@ package ltd.starlight.mall.controller.mall;
 
 import ltd.starlight.mall.common.Constants;
 import ltd.starlight.mall.common.ServiceResultEnum;
+import ltd.starlight.mall.controller.vo.StarlightMallUserVO;
+import ltd.starlight.mall.entity.MallUser;
 import ltd.starlight.mall.service.StarlightMallUserService;
 import ltd.starlight.mall.util.MD5Util;
 import ltd.starlight.mall.util.Result;
@@ -9,12 +11,10 @@ import ltd.starlight.mall.util.ResultGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -30,6 +30,13 @@ public class PersonalController {
     @GetMapping({"/register", "register.html"})
     public String registerPage() {
         return "mall/register";
+    }
+
+    @GetMapping("/personal")
+    public String personalPage(HttpServletRequest request,
+                               HttpSession httpSession) {
+        request.setAttribute("path", "personal");
+        return "mall/personal";
     }
 
     @PostMapping("/login")
@@ -92,4 +99,18 @@ public class PersonalController {
         return "mall/login";
     }
 
+    @PostMapping("/personal/updateInfo")
+    @ResponseBody
+    public Result updateInfo(@RequestBody MallUser mallUser, HttpSession httpSession) {
+        StarlightMallUserVO mallUserTemp = starlightMallUserService.updateUserInfo(mallUser, httpSession);
+        if (mallUserTemp == null) {
+            Result result = ResultGenerator.genFailResult("修改失败");
+            return result;
+        } else {
+            //返回成功
+            Result result = ResultGenerator.genSuccessResult();
+            return result;
+        }
+    }
 }
+

@@ -3,12 +3,13 @@ package ltd.starlight.mall.controller.vo;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Getter
 @Setter
-public class StarlightMallOrderListVO {
+public class StarlightMallOrderListVO implements Serializable {
     private Long orderId;
 
     private String orderNo;
@@ -25,5 +26,5 @@ public class StarlightMallOrderListVO {
 
     private Date createTime;
 
-    private List<StarlightMallOrderItemVO> starlightMallOrderItemVOList;
+    private List<StarlightMallOrderItemVO> starlightMallOrderItemVOS;
 }

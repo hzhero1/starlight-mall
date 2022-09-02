@@ -44,6 +44,7 @@ public class IndexController {
         request.setAttribute("newGoodses", newGoodses);//新品
         request.setAttribute("recommendGoodses", recommendGoodses);//推荐商品
 
+
         return "mall/index";
     }
 }
